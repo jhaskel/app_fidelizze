@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shop/components/app_drawer.dart';
@@ -9,6 +10,7 @@ import 'package:shop/core/controllers/stores_controller.dart';
 import 'package:shop/core/models/cards.dart';
 import 'package:shop/core/models/stores.dart';
 import 'package:shop/core/routes/app_routes.dart';
+import 'package:shop/pages/cards/qrcode_page.dart';
 
 
 import 'package:shop/providers/auth.dart';
@@ -50,7 +52,8 @@ class _CardsPageState extends State<CardsPage> {
           actions: [
             IconButton(
                 onPressed: () {
-                  Get.toNamed(Routes.BARCODE);
+               //   Get.toNamed(Routes.BARCODE);
+                  openBottomSheet();
                 },
                 icon: Icon(Icons.qr_code)),
 
@@ -326,6 +329,19 @@ class _CardsPageState extends State<CardsPage> {
       builder: (BuildContext context) {
         return alert;
       },
+    );
+  }
+
+  void openBottomSheet() {
+    showMaterialModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState /*You can rename this!*/) {
+                return QrcodePage(widget.nome);
+              }
+          );
+        }
     );
   }
 

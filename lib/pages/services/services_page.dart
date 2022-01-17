@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shop/components/app_drawer.dart';
 import 'package:shop/core/controllers/services_controller.dart';
 import 'package:shop/core/controllers/stores_controller.dart';
+import 'package:shop/core/controllers/users_controller.dart';
 import 'package:shop/core/models/services.dart';
 import 'package:shop/core/models/stores.dart';
 import 'package:shop/core/routes/app_routes.dart';
+import 'package:shop/pages/services/barcode3.dart';
 import 'package:shop/providers/auth.dart';
 
 class ServicesPage extends StatelessWidget {
@@ -15,6 +18,7 @@ class ServicesPage extends StatelessWidget {
   List<dynamic> listStores = [];
   ServicesController controller = Get.put(ServicesController());
   StoresController controllerStore = Get.put(StoresController());
+  //UsersController controllerUsers = Get.put(UsersController());
   String role;
   String nome;
 
@@ -53,12 +57,12 @@ class ServicesPage extends StatelessWidget {
         ),
         body: _.isLoading.value
             ? Center(child: CircularProgressIndicator())
-            : _body(_, user),
+            : _body(_, user,context),
       );
     });
   }
 
-  _body(ServicesController _, Auth user) {
+  _body(ServicesController _, Auth user, BuildContext context) {
     if (_.isErro.value) {
       return Center(
         child: Text("Ocorreu um erro insesperado!"),
@@ -95,7 +99,9 @@ class ServicesPage extends StatelessWidget {
                     Services c = listServices[index];
                     return ListTile(
                       onTap: () {
-                        gerarQrCode(context, c, user);
+                     //   gerarQrCode(context, c, user);
+                      //     Get.toNamed(Routes.BARCODE);
+                           openBottomSheet(context,c,user);
                       },
                       leading: Icon(
                         Icons.check_circle,
@@ -152,6 +158,8 @@ class ServicesPage extends StatelessWidget {
 
   }
 
+
+
   gerarQrCode(BuildContext context, Services c, Auth user) {
     Widget cancelaButton = TextButton(
       child: Text("Ok"),
@@ -194,6 +202,19 @@ class ServicesPage extends StatelessWidget {
       builder: (BuildContext context) {
         return alert;
       },
+    );
+  }
+
+  void openBottomSheet(BuildContext context, Services c, Auth user) {
+    showMaterialModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState /*You can rename this!*/) {
+                return BarcodePageValida(c,user);
+              }
+          );
+        }
     );
   }
 

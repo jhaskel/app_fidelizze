@@ -27,6 +27,7 @@ class Barcode2Page extends StatefulWidget {
   _Barcode2PageState createState() => _Barcode2PageState();
 }
 class _Barcode2PageState extends State<Barcode2Page> {
+
   ScanResult? scanResult;
   final _flashOnController = TextEditingController(text: 'Flash on');
   final _flashOffController = TextEditingController(text: 'Flash off');
@@ -85,6 +86,7 @@ class _Barcode2PageState extends State<Barcode2Page> {
 
   @override
   Widget build(BuildContext context) {
+    print("KLKLLKLK");
     var user = Provider.of<Auth>(context);
     if (qrCodeResult != '') {
       print("qrCodeResult $qrCodeResult");
@@ -197,6 +199,8 @@ print('deletando cars');
       //deletar no cardLst/lola/todos ids acima
 print('deletando cardList');
       await controlerCardList.loadCardDeletar(idCliente,idLoja);
+      controlerCards.loadCards();
+
       Get.back();
     } catch (error) {
       print("03");

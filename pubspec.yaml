@@ -36,6 +36,7 @@ dependencies:
   fluttertoast: ^8.0.8
   flutter_native_splash: ^1.2.0
   ai_barcode: ^3.0.1
+  modal_bottom_sheet: ^2.0.0
 
 
 

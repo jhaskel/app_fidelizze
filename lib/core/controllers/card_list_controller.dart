@@ -129,7 +129,7 @@ class CardListController extends GetxController {
     }
   }
   Future<void> loadCardDeletar(String cliente,String loja) async {
-    loadCardLists();
+    await loadCardLists();
     try{
       isLoading(true);
       cardDeletar.clear();
@@ -331,13 +331,8 @@ class CardListController extends GetxController {
     }
   }
   Future<void> removeCard(String cardList) async {
-    int index = scardListList.indexWhere((p) => p.id == cardList);
-    print("PP0 $index");
-    print("PP00 ${cardList}");
-    if (index >= 0) {
-      final scardList = scardListList[index];
-      scardListList.remove(scardList);
-      update();
+
+
 
       final response = await http.delete(
         Uri.parse(
@@ -347,15 +342,8 @@ class CardListController extends GetxController {
       print("PP1 ${AppConstants.BASE_URL_CARDLIST}/$idUser/${cardList}.json");
       print("PP2 ${response.statusCode}");
 
-      if (response.statusCode >= 400) {
-        scardListList.insert(index, scardList);
-        update();
-        throw HttpException(
-          msg: 'Não foi possível excluir o produto.',
-          statusCode: response.statusCode,
-        );
-      }
-    }
+
+
   }
 
 }

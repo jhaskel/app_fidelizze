@@ -45,7 +45,7 @@ class AppPages {
     GetPage(name: Routes.CARDSLOJA, page: () => CardsLojaPage()),
     GetPage(name: Routes.BARCODE, page: () => BarcodePage()),
     GetPage(name: Routes.BARCODE2, page: () => Barcode2Page()),
-    GetPage(name: Routes.BARCODE2, page: () => Barcode2Page()),
+
     GetPage(name: Routes.RESGATES, page: () => ResgatesPage()),
   ];
 }
